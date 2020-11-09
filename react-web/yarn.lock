@@ -7097,15 +7097,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-mapleaflet-react-web-native@/home/marta/Expo/TentlyCrossPlatform/client/packages/MapLeaflet:
-  version "1.0.9"
-  dependencies:
-    "@trusohamn/react-native-webview-leaflet" "^5.0.2"
-    leaflet "^1.7.1"
-    react-leaflet "^2.7.0"
-
-"mapleaflet-react-web-native@file:../../../Expo/TentlyCrossPlatform/client/packages/MapLeaflet":
-  version "1.0.9"
+mapleaflet-react-web-native@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/mapleaflet-react-web-native/-/mapleaflet-react-web-native-1.0.10.tgz#111b43c65a1b2dc24a46f7ea6ee605e31f62c265"
+  integrity sha512-C4sMHcOtriqw5ZXwYhWyNoA0KgjWD9M98sVxAdO4zJpsXtFP0Kz2h72OSOequ58BZGU82hlIohahxGqJfaOjFg==
   dependencies:
     "@trusohamn/react-native-webview-leaflet" "^5.0.2"
     leaflet "^1.7.1"
