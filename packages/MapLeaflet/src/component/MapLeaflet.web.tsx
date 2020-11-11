@@ -1,15 +1,10 @@
-import React, { createRef } from 'react'
-import {
-  Map as LeafletMap,
-  TileLayer,
-  Marker,
-  Popup,
-} from 'react-leaflet'
-import '../MapLeaflet.css'
-import { Icon } from 'leaflet'
+import React, { createRef } from "react";
+import { Map as LeafletMap, TileLayer, Marker, Popup } from "react-leaflet";
+import "../MapLeaflet.css";
+import { Icon } from "leaflet";
 
-import { useMapLeaflet } from '../hooks'
-import { MapLeafletProps } from '../types'
+import { useMapLeaflet } from "../hooks";
+import { MapLeafletProps } from "../types";
 
 const MapLeaflet = ({
   markers = [],
@@ -22,22 +17,21 @@ const MapLeaflet = ({
   const { mapCenterPosition, zoom } = useMapLeaflet({
     zoomSetting,
     positionSetting,
-  })
+  });
 
-  const refmarker = createRef<Marker>()
+  const refmarker = createRef<Marker>();
 
   const updatePosition = () => {
-    const marker = refmarker.current
-    if (marker != null) {
-      setSelectedPosition(marker.leafletElement.getLatLng())
+    if (refmarker.current != null && !!setSelectedPosition) {
+      setSelectedPosition(refmarker.current.leafletElement.getLatLng());
     }
-  }
+  };
 
   return (
     <LeafletMap
       center={mapCenterPosition}
       zoom={zoom}
-      onclick={(e) => setSelectedPosition(e.latlng)}
+      onclick={(e) => !!setSelectedPosition && setSelectedPosition(e.latlng)}
     >
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -51,7 +45,7 @@ const MapLeaflet = ({
           ref={refmarker}
           icon={
             new Icon({
-              iconUrl: markerIcon || ' ',
+              iconUrl: markerIcon || " ",
               iconSize: [32, 42],
             })
           }
@@ -64,7 +58,7 @@ const MapLeaflet = ({
             position={marker.position}
             icon={
               new Icon({
-                iconUrl: marker.icon || ' ',
+                iconUrl: marker.icon || " ",
                 iconSize: marker.size,
               })
             }
@@ -73,10 +67,10 @@ const MapLeaflet = ({
               {marker.name} <br />
             </Popup>
           </Marker>
-        )
+        );
       })}
     </LeafletMap>
-  )
-}
+  );
+};
 
-export default MapLeaflet
+export default MapLeaflet;

@@ -1,5 +1,4 @@
 {
-    "extends": [
-      "tslint:recommended"
-    ]
-  }
+  "extends": ["tslint:recommended"],
+  "rules": { "no-unused-expression": false }
+}

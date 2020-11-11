@@ -14,6 +14,6 @@ export declare type MapLeafletProps = {
     zoom?: number;
     position?: LatLngObject;
     selectedPosition?: LatLngObject;
-    setSelectedPosition?: any;
+    setSelectedPosition?: (arg: LatLngObject) => void;
     markerIcon?: any;
 };
