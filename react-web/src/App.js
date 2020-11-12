@@ -1,12 +1,7 @@
-import "./App.css";
-import MapLeaflet from "mapleaflet-react-web-native";
+import MapUsage from "./MapUsage";
 
 function App() {
-  return (
-    <div className="App">
-      <MapLeaflet />
-    </div>
-  );
+  return <MapUsage />;
 }
 
 export default App;
