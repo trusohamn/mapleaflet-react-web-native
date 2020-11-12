@@ -1,8 +1,8 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import MapUsage from "./MapUsage";
 
-test("renders learn react link", () => {
+test("does not break on click", () => {
   render(<MapUsage />);
-  // const linkElement = screen.getByText(/learn react/i);
-  // expect(linkElement).toBeInTheDocument();
+  const map = screen.getByTestId("mapl");
+  fireEvent.click(map);
 });
