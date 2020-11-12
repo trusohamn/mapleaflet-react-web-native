@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-      "target": "es5",
-      "module": "es6",
+      "target": "esnext",
+      "module": "esnext",
       "declaration": true,
       "outDir": "./lib",
       "allowSyntheticDefaultImports": true,
@@ -12,6 +12,8 @@
       "skipLibCheck": true,
       "resolveJsonModule": true,
       "strict": true,
+      "allowJs": true,
+
     },
     "include": ["src"],
     "exclude": [

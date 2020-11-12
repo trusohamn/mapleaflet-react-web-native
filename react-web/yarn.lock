@@ -7097,13 +7097,6 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-mapleaflet-react-web-native@/home/marta/Github/mapleaflet-react-web-native/packages/MapLeaflet:
-  version "1.0.10"
-  dependencies:
-    "@trusohamn/react-native-webview-leaflet" "^5.0.2"
-    leaflet "^1.7.1"
-    react-leaflet "^2.7.0"
-
 "mapleaflet-react-web-native@file:../packages/MapLeaflet":
   version "1.0.10"
   dependencies:
