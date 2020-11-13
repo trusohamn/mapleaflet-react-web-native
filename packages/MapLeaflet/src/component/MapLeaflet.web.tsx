@@ -1,6 +1,6 @@
 import React, { createRef } from "react";
 import { Map as LeafletMap, TileLayer, Marker, Popup } from "react-leaflet";
-import "../MapLeaflet.css";
+import "../assets/MapLeaflet.css";
 import { Icon } from "leaflet";
 
 import { useMapLeaflet } from "../hooks";
