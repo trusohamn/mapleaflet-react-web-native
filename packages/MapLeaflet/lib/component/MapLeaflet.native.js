@@ -4,9 +4,10 @@ import { View, Alert, Image } from "react-native";
 import { useMapLeaflet } from "../hooks";
 import styles from "../style";
 const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting, selectedPosition, setSelectedPosition, markerIcon, }) => {
-    const { mapCenterPosition, zoom } = useMapLeaflet({
+    const { mapCenterPosition, zoom, markerIconWithDefault } = useMapLeaflet({
         zoomSetting,
         positionSetting,
+        markerIcon,
     });
     const [webViewLeafletRef, setWebViewLeafletRef,] = useState(null);
     const onMessageReceived = (message) => {
@@ -32,7 +33,7 @@ const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting
         if (!!selectedPosition) {
             locationMarkers.push({
                 id: "selectedMarker",
-                icon: Image.resolveAssetSource(markerIcon || 0).uri,
+                icon: Image.resolveAssetSource(markerIconWithDefault).uri,
                 position: selectedPosition,
                 size: [32, 42],
                 name: "selectedMarker",

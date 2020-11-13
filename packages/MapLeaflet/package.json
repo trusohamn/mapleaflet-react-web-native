@@ -11,8 +11,9 @@
     "build": "tsc --project ./tsconfig.json ",
     "pub": "npm publish --access public",
     "lint": "tslint --fix -p ./tsconfig.json",
-    "copy-assets": "cp -rv src/assets/ lib/assets/",
-    "prepare": "rm -rf /home/marta/Expo/TentlyCrossPlatform/client/packages/MapLeaflet/lib && yarn build && yarn copy-assets"
+    "copy-assets": "cp -r src/assets/ lib/assets/",
+    "clean-lib": "rm -rf lib",
+    "prepare": "yarn clean-lib && yarn build && yarn copy-assets"
   },
   "author": "Marta Trusohamn",
   "keywords": [

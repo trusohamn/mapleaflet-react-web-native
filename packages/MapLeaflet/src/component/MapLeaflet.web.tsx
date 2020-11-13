@@ -14,9 +14,10 @@ const MapLeaflet = ({
   setSelectedPosition,
   markerIcon,
 }: MapLeafletProps) => {
-  const { mapCenterPosition, zoom } = useMapLeaflet({
+  const { mapCenterPosition, zoom, markerIconWithDefault } = useMapLeaflet({
     zoomSetting,
     positionSetting,
+    markerIcon,
   });
 
   const refmarker = createRef<Marker>();
@@ -45,7 +46,7 @@ const MapLeaflet = ({
           ref={refmarker}
           icon={
             new Icon({
-              iconUrl: markerIcon || " ",
+              iconUrl: markerIcon || markerIconWithDefault,
               iconSize: [32, 42],
             })
           }

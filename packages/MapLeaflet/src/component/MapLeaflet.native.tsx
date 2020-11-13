@@ -17,9 +17,10 @@ const MapLeaflet = ({
   setSelectedPosition,
   markerIcon,
 }: MapLeafletProps) => {
-  const { mapCenterPosition, zoom } = useMapLeaflet({
+  const { mapCenterPosition, zoom, markerIconWithDefault } = useMapLeaflet({
     zoomSetting,
     positionSetting,
+    markerIcon,
   });
   const [
     webViewLeafletRef,
@@ -55,7 +56,7 @@ const MapLeaflet = ({
     if (!!selectedPosition) {
       locationMarkers.push({
         id: "selectedMarker",
-        icon: Image.resolveAssetSource(markerIcon || 0).uri,
+        icon: Image.resolveAssetSource(markerIconWithDefault).uri,
         position: selectedPosition,
         size: [32, 42],
         name: "selectedMarker",
