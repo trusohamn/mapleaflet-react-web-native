@@ -16,6 +16,7 @@ const MapLeaflet = ({
   selectedPosition,
   setSelectedPosition,
   markerIcon,
+  ...props
 }: MapLeafletProps) => {
   const { mapCenterPosition, zoom, markerIconWithDefault } = useMapLeaflet({
     zoomSetting,
@@ -84,6 +85,7 @@ const MapLeaflet = ({
         mapMarkers={setMarkersOnMap()}
         mapCenterPosition={mapCenterPosition}
         zoom={zoom}
+        {...props}
       ></WebViewLeaflet>
     </View>
   );

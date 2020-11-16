@@ -9,6 +9,7 @@
     "mapleaflet-react-web-native": "/home/marta/Github/mapleaflet-react-web-native/packages/MapLeaflet",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-leaflet": "^3.0.2",
     "react-scripts": "4.0.0",
     "web-vitals": "^0.2.4"
   },

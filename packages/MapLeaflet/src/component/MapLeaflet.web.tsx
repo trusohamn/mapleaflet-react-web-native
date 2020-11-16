@@ -1,5 +1,11 @@
-import React, { createRef } from "react";
-import { Map as LeafletMap, TileLayer, Marker, Popup } from "react-leaflet";
+import React, {
+  createRef,
+  useRef,
+  useMemo,
+  useState,
+  useCallback,
+} from "react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "../assets/MapLeaflet.css";
 import { Icon } from "leaflet";
 
@@ -13,6 +19,8 @@ const MapLeaflet = ({
   selectedPosition,
   setSelectedPosition,
   markerIcon,
+  children,
+  ...props
 }: MapLeafletProps) => {
   const { mapCenterPosition, zoom, markerIconWithDefault } = useMapLeaflet({
     zoomSetting,
@@ -20,25 +28,66 @@ const MapLeaflet = ({
     markerIcon,
   });
 
-  const refmarker = createRef<Marker>();
+  const refmarker = createRef<typeof Marker>();
 
-  const updatePosition = () => {
+  /*   const updatePosition = () => {
     if (refmarker.current != null && !!setSelectedPosition) {
       setSelectedPosition(refmarker.current.leafletElement.getLatLng());
     }
+  }; */
+  const center = {
+    lat: 51.505,
+    lng: -0.09,
   };
+  function DraggableMarker() {
+    const [draggable, setDraggable] = useState(false);
+    const [position, setPosition] = useState(selectedPosition || center);
+    const markerRef = useRef<any>(null);
+    const eventHandlers = useMemo(
+      () => ({
+        dragend() {
+          const marker = markerRef.current;
+          if (marker != null) {
+            setPosition(marker.getLatLng());
+          }
+        },
+      }),
+      []
+    );
+    const toggleDraggable = useCallback(() => {
+      setDraggable((d) => !d);
+    }, []);
+
+    return (
+      <Marker
+        draggable={draggable}
+        eventHandlers={eventHandlers}
+        position={position}
+        ref={markerRef}
+      >
+        <Popup minWidth={90}>
+          <span onClick={toggleDraggable}>
+            {draggable
+              ? "Marker is draggable"
+              : "Click here to make marker draggable"}
+          </span>
+        </Popup>
+      </Marker>
+    );
+  }
 
   return (
-    <LeafletMap
+    <MapContainer
       center={mapCenterPosition}
       zoom={zoom}
-      onclick={(e) => !!setSelectedPosition && setSelectedPosition(e.latlng)}
+      /*       onclick={(e) => !!setSelectedPosition && setSelectedPosition(e.latlng)}
+       */
     >
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
       />
-      {!!selectedPosition && (
+      {/*       {!!selectedPosition && (
         <Marker
           position={selectedPosition}
           draggable={true}
@@ -50,8 +99,9 @@ const MapLeaflet = ({
               iconSize: [32, 42],
             })
           }
+          {...props}
         ></Marker>
-      )}
+      )} */}
       {markers.map((marker, id) => {
         return (
           <Marker
@@ -70,7 +120,8 @@ const MapLeaflet = ({
           </Marker>
         );
       })}
-    </LeafletMap>
+      <DraggableMarker />
+    </MapContainer>
   );
 };
 

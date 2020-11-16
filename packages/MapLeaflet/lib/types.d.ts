@@ -1,3 +1,4 @@
+/// <reference types="react" />
 export declare type LatLngObject = {
     lat: number;
     lng: number;
@@ -16,4 +17,5 @@ export declare type MapLeafletProps = {
     selectedPosition?: LatLngObject;
     setSelectedPosition?: (arg: LatLngObject) => void;
     markerIcon?: any;
+    children?: [JSX.Element];
 };
