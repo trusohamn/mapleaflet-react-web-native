@@ -59,9 +59,15 @@ const MapLeaflet = ({
         eventHandlers={eventHandlers}
         position={position}
         ref={markerRef}
+        icon={
+          new Icon({
+            iconUrl: markerIcon || markerIconWithDefault,
+            iconSize: [32, 42],
+          })
+        }
       >
         <Popup minWidth={90}>
-          <span> "Marker is draggable"</span>
+          <span>Drag marker to mark position</span>
         </Popup>
       </Marker>
     );
