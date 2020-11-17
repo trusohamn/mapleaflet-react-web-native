@@ -36,11 +36,10 @@ const MapLeaflet = ({
     }
   }; */
   const center = {
-    lat: 51.505,
-    lng: -0.09,
+    lat: 59.3325,
+    lng: 18.0649,
   };
   function DraggableMarker() {
-    const [draggable, setDraggable] = useState(false);
     const [position, setPosition] = useState(selectedPosition || center);
     const markerRef = useRef<any>(null);
     const eventHandlers = useMemo(
@@ -54,23 +53,15 @@ const MapLeaflet = ({
       }),
       []
     );
-    const toggleDraggable = useCallback(() => {
-      setDraggable((d) => !d);
-    }, []);
-
     return (
       <Marker
-        draggable={draggable}
+        draggable={true}
         eventHandlers={eventHandlers}
         position={position}
         ref={markerRef}
       >
         <Popup minWidth={90}>
-          <span onClick={toggleDraggable}>
-            {draggable
-              ? "Marker is draggable"
-              : "Click here to make marker draggable"}
-          </span>
+          <span> "Marker is draggable"</span>
         </Popup>
       </Marker>
     );

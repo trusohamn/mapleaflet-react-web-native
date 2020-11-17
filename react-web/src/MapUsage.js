@@ -1,11 +1,11 @@
 import React from "react";
 import MapLeaflet from "mapleaflet-react-web-native";
-import { Circle } from "react-leaflet";
-
+/* import { Circle } from "react-leaflet";
+ */
 import "./App.css";
 
 const MapUsage = () => {
-  const center = [51.505, -0.09];
+  /*   const center = [51.505, -0.09];
 
   const polyline = [
     [51.505, -0.09],
@@ -54,13 +54,13 @@ const MapUsage = () => {
   const blackOptions = { color: "black" };
   const limeOptions = { color: "lime" };
   const purpleOptions = { color: "purple" };
-  const redOptions = { color: "red" };
+  const redOptions = { color: "red" }; */
   return (
     <div className="App" data-testid="mapl">
       <MapLeaflet
-        children={
+      /*  children={
           <Circle center={center} pathOptions={fillBlueOptions} radius={200} />
-        }
+        } */
       />
     </div>
   );
