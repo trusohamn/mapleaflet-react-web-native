@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import MapLeaflet from "mapleaflet-react-web-native";
 /* import { Circle } from "react-leaflet";
  */
@@ -55,10 +55,16 @@ const MapUsage = () => {
   const limeOptions = { color: "lime" };
   const purpleOptions = { color: "purple" };
   const redOptions = { color: "red" }; */
+  const [selectedPosition, setSelectedPosition] = useState({
+    lat: 59.5,
+    lng: 18.0,
+  });
   return (
     <div className="App" data-testid="mapl">
       <MapLeaflet
-      /*  children={
+        selectedPosition={selectedPosition}
+        setSelectedPosition={setSelectedPosition}
+        /*  children={
           <Circle center={center} pathOptions={fillBlueOptions} radius={200} />
         } */
       />
