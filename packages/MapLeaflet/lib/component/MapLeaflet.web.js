@@ -31,8 +31,12 @@ const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting
     });
     return (React.createElement(MapContainer, { center: mapCenterPosition, zoom: zoom },
         React.createElement(TileLayer, { attribution: '\u00A9 <a href="http://osm.org/copyright">OpenStreetMap</a> contributors', url: "https://{s}.tile.osm.org/{z}/{x}/{y}.png" }),
-        markers.map((marker, id) => {
-            return (React.createElement(Marker, { key: id, position: marker.position, icon: new Icon({
+        markers.map((marker) => {
+            console.log(marker);
+            return (React.createElement(Marker, { key: JSON.stringify({
+                    position: marker.position,
+                    name: marker.name,
+                }), position: marker.position, icon: new Icon({
                     iconUrl: marker.icon || " ",
                     iconSize: marker.size,
                 }) },

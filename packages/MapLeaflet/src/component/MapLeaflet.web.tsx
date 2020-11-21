@@ -76,10 +76,14 @@ const MapLeaflet = ({
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
       />
-      {markers.map((marker, id) => {
+      {markers.map((marker) => {
+        console.log(marker);
         return (
           <Marker
-            key={id}
+            key={JSON.stringify({
+              position: marker.position,
+              name: marker.name,
+            })}
             position={marker.position}
             icon={
               new Icon({
