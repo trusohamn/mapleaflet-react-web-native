@@ -1,5 +1,11 @@
-import React, { createRef, useRef, useMemo } from "react";
-import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
+import React, { useRef, useMemo } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMapEvents,
+} from "react-leaflet";
 import "../assets/MapLeaflet.css";
 import { Icon } from "leaflet";
 
@@ -27,6 +33,9 @@ const DraggableMarker = ({
     }),
     []
   );
+  useMapEvents({
+    click: (e) => setSelectedPosition(e.latlng),
+  });
   return (
     <Marker
       draggable={true}
@@ -62,12 +71,7 @@ const MapLeaflet = ({
   });
 
   return (
-    <MapContainer
-      center={mapCenterPosition}
-      zoom={zoom}
-      /*       onclick={(e) => !!setSelectedPosition && setSelectedPosition(e.latlng)}
-       */
-    >
+    <MapContainer center={mapCenterPosition} zoom={zoom}>
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"

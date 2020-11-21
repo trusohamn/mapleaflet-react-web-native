@@ -1,5 +1,5 @@
 import React, { useRef, useMemo } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, } from "react-leaflet";
 import "../assets/MapLeaflet.css";
 import { Icon } from "leaflet";
 import { useMapLeaflet } from "../hooks";
@@ -13,6 +13,9 @@ const DraggableMarker = ({ setSelectedPosition, selectedPosition, markerIconWith
             }
         },
     }), []);
+    useMapEvents({
+        click: (e) => setSelectedPosition(e.latlng),
+    });
     return (React.createElement(Marker, { draggable: true, eventHandlers: eventHandlers, position: selectedPosition, ref: markerRef, icon: new Icon({
             iconUrl: markerIconWithDefault,
             iconSize: [32, 42],
@@ -20,7 +23,7 @@ const DraggableMarker = ({ setSelectedPosition, selectedPosition, markerIconWith
         React.createElement(Popup, { minWidth: 90 },
             React.createElement("span", null, "Drag marker to mark position"))));
 };
-const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting, selectedPosition, setSelectedPosition, markerIcon, children, ...props }) => {
+const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting, selectedPosition, setSelectedPosition, markerIcon, }) => {
     const { mapCenterPosition, zoom, markerIconWithDefault } = useMapLeaflet({
         zoomSetting,
         positionSetting,
