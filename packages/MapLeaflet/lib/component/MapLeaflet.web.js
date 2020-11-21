@@ -1,4 +1,4 @@
-import React, { createRef, useRef, useMemo, } from "react";
+import React, { useRef, useMemo } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "../assets/MapLeaflet.css";
 import { Icon } from "leaflet";
@@ -26,17 +26,6 @@ const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting
         positionSetting,
         markerIcon,
     });
-    const refmarker = createRef();
-    /*   const updatePosition = () => {
-      if (refmarker.current != null && !!setSelectedPosition) {
-        setSelectedPosition(refmarker.current.leafletElement.getLatLng());
-      }
-    }; */
-    const center = {
-        lat: 59.3325,
-        lng: 18.0649,
-    };
-    console.log(markerIconWithDefault, selectedPosition, setSelectedPosition);
     return (React.createElement(MapContainer, { center: mapCenterPosition, zoom: zoom },
         React.createElement(TileLayer, { attribution: '\u00A9 <a href="http://osm.org/copyright">OpenStreetMap</a> contributors', url: "https://{s}.tile.osm.org/{z}/{x}/{y}.png" }),
         markers.map((marker, id) => {
@@ -49,6 +38,6 @@ const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting
                     " ",
                     React.createElement("br", null))));
         }),
-        React.createElement(DraggableMarker, { markerIconWithDefault: markerIconWithDefault, selectedPosition: selectedPosition, setSelectedPosition: setSelectedPosition })));
+        !!selectedPosition && (React.createElement(DraggableMarker, { markerIconWithDefault: markerIconWithDefault, selectedPosition: selectedPosition, setSelectedPosition: setSelectedPosition }))));
 };
 export default MapLeaflet;

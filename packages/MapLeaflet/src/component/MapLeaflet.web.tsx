@@ -1,11 +1,5 @@
-import React, {
-  createRef,
-  useRef,
-  useMemo,
-  useState,
-  useCallback,
-} from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import React, { createRef, useRef, useMemo } from "react";
+import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
 import "../assets/MapLeaflet.css";
 import { Icon } from "leaflet";
 
@@ -60,8 +54,6 @@ const MapLeaflet = ({
   selectedPosition,
   setSelectedPosition,
   markerIcon,
-  children,
-  ...props
 }: MapLeafletProps) => {
   const { mapCenterPosition, zoom, markerIconWithDefault } = useMapLeaflet({
     zoomSetting,
@@ -69,18 +61,6 @@ const MapLeaflet = ({
     markerIcon,
   });
 
-  const refmarker = createRef<typeof Marker>();
-
-  /*   const updatePosition = () => {
-    if (refmarker.current != null && !!setSelectedPosition) {
-      setSelectedPosition(refmarker.current.leafletElement.getLatLng());
-    }
-  }; */
-  const center = {
-    lat: 59.3325,
-    lng: 18.0649,
-  };
-  console.log(markerIconWithDefault, selectedPosition, setSelectedPosition);
   return (
     <MapContainer
       center={mapCenterPosition}
@@ -110,13 +90,13 @@ const MapLeaflet = ({
           </Marker>
         );
       })}
-      {
+      {!!selectedPosition && (
         <DraggableMarker
           markerIconWithDefault={markerIconWithDefault}
           selectedPosition={selectedPosition}
           setSelectedPosition={setSelectedPosition}
         />
-      }
+      )}
     </MapContainer>
   );
 };
