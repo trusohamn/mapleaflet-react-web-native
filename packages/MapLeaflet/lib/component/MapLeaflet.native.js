@@ -7,28 +7,25 @@ const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting
     const { mapCenterPosition, zoom, selectorIconWithDefault } = useMapLeaflet({
         zoomSetting,
         positionSetting,
-        selectorIcon: locationSelector?.selectorIcon,
+        selectorIcon: locationSelector === null || locationSelector === void 0 ? void 0 : locationSelector.selectorIcon,
     });
     const [webViewLeafletRef, setWebViewLeafletRef,] = useState(null);
     const onMessageReceived = (message) => {
+        var _a, _b, _c;
         switch (message.event) {
             case WebViewLeafletEvents.ON_MAP_TOUCHED:
-                const position = message?.payload?.touchLatLng;
-                locationSelector?.setSelectedPosition(position);
+                const position = (_a = message === null || message === void 0 ? void 0 : message.payload) === null || _a === void 0 ? void 0 : _a.touchLatLng;
+                locationSelector === null || locationSelector === void 0 ? void 0 : locationSelector.setSelectedPosition(position);
                 break;
             case WebViewLeafletEvents.ON_MAP_MARKER_CLICKED:
-                Alert.alert(` ${message?.payload?.mapMarkerID
-                    ? markers[parseInt(message?.payload?.mapMarkerID, 10) - 1].name
+                Alert.alert(` ${((_b = message === null || message === void 0 ? void 0 : message.payload) === null || _b === void 0 ? void 0 : _b.mapMarkerID) ? markers[parseInt((_c = message === null || message === void 0 ? void 0 : message.payload) === null || _c === void 0 ? void 0 : _c.mapMarkerID, 10) - 1].name
                     : "unknown"}`);
                 break;
         }
     };
     const setMarkersOnMap = () => {
         const locationMarkers = markers.map((marker) => {
-            return {
-                ...marker,
-                icon: Image.resolveAssetSource(marker.icon || 0).uri,
-            };
+            return Object.assign(Object.assign({}, marker), { icon: Image.resolveAssetSource(marker.icon || 0).uri });
         });
         if (!!locationSelector) {
             locationMarkers.push({

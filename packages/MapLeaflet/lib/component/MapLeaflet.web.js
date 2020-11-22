@@ -27,7 +27,7 @@ const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting
     const { mapCenterPosition, zoom, selectorIconWithDefault } = useMapLeaflet({
         zoomSetting,
         positionSetting,
-        selectorIcon: locationSelector?.selectorIcon,
+        selectorIcon: locationSelector === null || locationSelector === void 0 ? void 0 : locationSelector.selectorIcon,
     });
     return (React.createElement(MapContainer, { center: mapCenterPosition, zoom: zoom },
         React.createElement(TileLayer, { attribution: '\u00A9 <a href="http://osm.org/copyright">OpenStreetMap</a> contributors', url: "https://{s}.tile.osm.org/{z}/{x}/{y}.png" }),
