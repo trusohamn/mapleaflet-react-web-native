@@ -27,13 +27,12 @@ const markers = [
 const MapUsage = () => {
   const [selectedPosition, setSelectedPosition] = useState({
     lat: 59.5,
-    lng: 18.0,
+    lng: 18.05,
   });
   return (
     <div className="App" data-testid="mapl">
       <MapLeaflet
-        selectedPosition={selectedPosition}
-        setSelectedPosition={setSelectedPosition}
+        locationSelector={{ selectedPosition, setSelectedPosition }}
         markers={markers}
       />
     </div>
