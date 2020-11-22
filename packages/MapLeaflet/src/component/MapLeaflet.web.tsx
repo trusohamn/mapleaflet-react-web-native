@@ -12,14 +12,14 @@ import { Icon } from "leaflet";
 import { useMapLeaflet } from "../hooks";
 import { MapLeafletProps } from "../types";
 
-const DraggableMarker = ({
+const LocationSelector = ({
   setSelectedPosition,
   selectedPosition,
-  markerIconWithDefault,
+  selectorIconWithDefault,
 }: {
   setSelectedPosition: any;
   selectedPosition: any;
-  markerIconWithDefault: any;
+  selectorIconWithDefault: any;
 }) => {
   const markerRef = useRef<any>(null);
   const eventHandlers = useMemo(
@@ -44,7 +44,7 @@ const DraggableMarker = ({
       ref={markerRef}
       icon={
         new Icon({
-          iconUrl: markerIconWithDefault,
+          iconUrl: selectorIconWithDefault,
           iconSize: [32, 42],
         })
       }
@@ -60,16 +60,13 @@ const MapLeaflet = ({
   markers = [],
   zoom: zoomSetting,
   position: positionSetting,
-  selectedPosition,
-  setSelectedPosition,
-  markerIcon,
+  locationSelector,
 }: MapLeafletProps) => {
-  const { mapCenterPosition, zoom, markerIconWithDefault } = useMapLeaflet({
+  const { mapCenterPosition, zoom, selectorIconWithDefault } = useMapLeaflet({
     zoomSetting,
     positionSetting,
-    markerIcon,
+    selectorIcon: locationSelector?.selectorIcon,
   });
-
   return (
     <MapContainer center={mapCenterPosition} zoom={zoom}>
       <TileLayer
@@ -77,7 +74,6 @@ const MapLeaflet = ({
         url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
       />
       {markers.map((marker) => {
-        console.log(marker);
         return (
           <Marker
             key={JSON.stringify({
@@ -98,11 +94,11 @@ const MapLeaflet = ({
           </Marker>
         );
       })}
-      {!!selectedPosition && (
-        <DraggableMarker
-          markerIconWithDefault={markerIconWithDefault}
-          selectedPosition={selectedPosition}
-          setSelectedPosition={setSelectedPosition}
+      {!!locationSelector && (
+        <LocationSelector
+          selectorIconWithDefault={selectorIconWithDefault}
+          selectedPosition={locationSelector.selectedPosition}
+          setSelectedPosition={locationSelector.setSelectedPosition}
         />
       )}
     </MapContainer>

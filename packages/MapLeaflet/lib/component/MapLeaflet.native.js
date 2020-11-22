@@ -3,18 +3,18 @@ import { WebViewLeaflet, WebViewLeafletEvents, } from "@trusohamn/react-native-w
 import { View, Alert, Image } from "react-native";
 import { useMapLeaflet } from "../hooks";
 import styles from "../style";
-const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting, selectedPosition, setSelectedPosition, markerIcon, ...props }) => {
-    const { mapCenterPosition, zoom, markerIconWithDefault } = useMapLeaflet({
+const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting, locationSelector, }) => {
+    const { mapCenterPosition, zoom, selectorIconWithDefault } = useMapLeaflet({
         zoomSetting,
         positionSetting,
-        markerIcon,
+        selectorIcon: locationSelector?.selectorIcon,
     });
     const [webViewLeafletRef, setWebViewLeafletRef,] = useState(null);
     const onMessageReceived = (message) => {
         switch (message.event) {
             case WebViewLeafletEvents.ON_MAP_TOUCHED:
                 const position = message?.payload?.touchLatLng;
-                !!setSelectedPosition && setSelectedPosition(position);
+                locationSelector?.setSelectedPosition(position);
                 break;
             case WebViewLeafletEvents.ON_MAP_MARKER_CLICKED:
                 Alert.alert(` ${message?.payload?.mapMarkerID
@@ -30,11 +30,11 @@ const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting
                 icon: Image.resolveAssetSource(marker.icon || 0).uri,
             };
         });
-        if (!!selectedPosition) {
+        if (!!locationSelector) {
             locationMarkers.push({
                 id: "selectedMarker",
-                icon: Image.resolveAssetSource(markerIconWithDefault).uri,
-                position: selectedPosition,
+                icon: Image.resolveAssetSource(selectorIconWithDefault).uri,
+                position: locationSelector.selectedPosition,
                 size: [32, 42],
                 name: "selectedMarker",
             });
@@ -42,7 +42,7 @@ const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting
         return locationMarkers;
     };
     return (React.createElement(View, { style: styles.container },
-        React.createElement(WebViewLeaflet, Object.assign({ onMessageReceived: onMessageReceived, ref: (ref) => {
+        React.createElement(WebViewLeaflet, { onMessageReceived: onMessageReceived, ref: (ref) => {
                 setWebViewLeafletRef(ref);
             }, mapLayers: [
                 {
@@ -51,6 +51,6 @@ const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting
                     baseLayerName: "OpenStreetMap.Mapnik",
                     url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 },
-            ], mapMarkers: setMarkersOnMap(), mapCenterPosition: mapCenterPosition, zoom: zoom }, props))));
+            ], mapMarkers: setMarkersOnMap(), mapCenterPosition: mapCenterPosition, zoom: zoom })));
 };
 export default MapLeaflet;

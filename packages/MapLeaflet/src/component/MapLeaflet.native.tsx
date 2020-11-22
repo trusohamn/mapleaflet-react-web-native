@@ -13,15 +13,12 @@ const MapLeaflet = ({
   markers = [],
   zoom: zoomSetting,
   position: positionSetting,
-  selectedPosition,
-  setSelectedPosition,
-  markerIcon,
-  ...props
+  locationSelector,
 }: MapLeafletProps) => {
-  const { mapCenterPosition, zoom, markerIconWithDefault } = useMapLeaflet({
+  const { mapCenterPosition, zoom, selectorIconWithDefault } = useMapLeaflet({
     zoomSetting,
     positionSetting,
-    markerIcon,
+    selectorIcon: locationSelector?.selectorIcon,
   });
   const [
     webViewLeafletRef,
@@ -32,7 +29,7 @@ const MapLeaflet = ({
     switch (message.event) {
       case WebViewLeafletEvents.ON_MAP_TOUCHED:
         const position = message?.payload?.touchLatLng as LatLngObject;
-        !!setSelectedPosition && setSelectedPosition(position);
+        locationSelector?.setSelectedPosition(position);
         break;
       case WebViewLeafletEvents.ON_MAP_MARKER_CLICKED:
         Alert.alert(
@@ -54,11 +51,11 @@ const MapLeaflet = ({
         icon: Image.resolveAssetSource(marker.icon || 0).uri,
       };
     });
-    if (!!selectedPosition) {
+    if (!!locationSelector) {
       locationMarkers.push({
         id: "selectedMarker",
-        icon: Image.resolveAssetSource(markerIconWithDefault).uri,
-        position: selectedPosition,
+        icon: Image.resolveAssetSource(selectorIconWithDefault).uri,
+        position: locationSelector.selectedPosition,
         size: [32, 42],
         name: "selectedMarker",
       });
@@ -85,7 +82,6 @@ const MapLeaflet = ({
         mapMarkers={setMarkersOnMap()}
         mapCenterPosition={mapCenterPosition}
         zoom={zoom}
-        {...props}
       ></WebViewLeaflet>
     </View>
   );

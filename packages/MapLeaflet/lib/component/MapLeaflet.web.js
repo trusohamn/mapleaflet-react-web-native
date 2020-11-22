@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents, } from "react-lea
 import "../assets/MapLeaflet.css";
 import { Icon } from "leaflet";
 import { useMapLeaflet } from "../hooks";
-const DraggableMarker = ({ setSelectedPosition, selectedPosition, markerIconWithDefault, }) => {
+const LocationSelector = ({ setSelectedPosition, selectedPosition, selectorIconWithDefault, }) => {
     const markerRef = useRef(null);
     const eventHandlers = useMemo(() => ({
         dragend() {
@@ -17,22 +17,21 @@ const DraggableMarker = ({ setSelectedPosition, selectedPosition, markerIconWith
         click: (e) => setSelectedPosition(e.latlng),
     });
     return (React.createElement(Marker, { draggable: true, eventHandlers: eventHandlers, position: selectedPosition, ref: markerRef, icon: new Icon({
-            iconUrl: markerIconWithDefault,
+            iconUrl: selectorIconWithDefault,
             iconSize: [32, 42],
         }) },
         React.createElement(Popup, { minWidth: 90 },
             React.createElement("span", null, "Drag marker to mark position"))));
 };
-const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting, selectedPosition, setSelectedPosition, markerIcon, }) => {
-    const { mapCenterPosition, zoom, markerIconWithDefault } = useMapLeaflet({
+const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting, locationSelector, }) => {
+    const { mapCenterPosition, zoom, selectorIconWithDefault } = useMapLeaflet({
         zoomSetting,
         positionSetting,
-        markerIcon,
+        selectorIcon: locationSelector?.selectorIcon,
     });
     return (React.createElement(MapContainer, { center: mapCenterPosition, zoom: zoom },
         React.createElement(TileLayer, { attribution: '\u00A9 <a href="http://osm.org/copyright">OpenStreetMap</a> contributors', url: "https://{s}.tile.osm.org/{z}/{x}/{y}.png" }),
         markers.map((marker) => {
-            console.log(marker);
             return (React.createElement(Marker, { key: JSON.stringify({
                     position: marker.position,
                     name: marker.name,
@@ -45,6 +44,6 @@ const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting
                     " ",
                     React.createElement("br", null))));
         }),
-        !!selectedPosition && (React.createElement(DraggableMarker, { markerIconWithDefault: markerIconWithDefault, selectedPosition: selectedPosition, setSelectedPosition: setSelectedPosition }))));
+        !!locationSelector && (React.createElement(LocationSelector, { selectorIconWithDefault: selectorIconWithDefault, selectedPosition: locationSelector.selectedPosition, setSelectedPosition: locationSelector.setSelectedPosition }))));
 };
 export default MapLeaflet;

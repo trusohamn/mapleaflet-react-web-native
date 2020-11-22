@@ -12,8 +12,9 @@ export type MapLeafletProps = {
   markers?: MarkerObject[];
   zoom?: number;
   position?: LatLngObject;
-  selectedPosition?: LatLngObject;
-  setSelectedPosition?: (arg: LatLngObject) => void;
-  markerIcon?: any;
-  children?: [JSX.Element];
+  locationSelector?: {
+    selectedPosition?: LatLngObject;
+    setSelectedPosition: (arg: LatLngObject) => void;
+    selectorIcon?: any;
+  };
 };

@@ -5,11 +5,11 @@ import defaultMarkerIcon from "./assets/marker.png";
 export const useMapLeaflet = ({
   zoomSetting,
   positionSetting,
-  markerIcon,
+  selectorIcon,
 }: {
   zoomSetting?: number;
   positionSetting?: LatLngObject;
-  markerIcon?: any;
+  selectorIcon?: any;
 }) => {
   const [mapCenterPosition, setMapCenterPosition] = useState(
     positionSetting || {
@@ -20,13 +20,15 @@ export const useMapLeaflet = ({
 
   const [zoom, setZoom] = useState(zoomSetting || 10);
 
-  const markerIconWithDefault = markerIcon ? markerIcon : defaultMarkerIcon;
+  const selectorIconWithDefault = selectorIcon
+    ? selectorIcon
+    : defaultMarkerIcon;
 
   return {
     mapCenterPosition,
     setMapCenterPosition,
     zoom,
     setZoom,
-    markerIconWithDefault,
+    selectorIconWithDefault,
   };
 };
