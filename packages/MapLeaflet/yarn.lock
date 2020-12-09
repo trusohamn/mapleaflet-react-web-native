@@ -304,7 +304,12 @@ js-yaml@^3.13.1:
     argparse "^1.0.7"
     esprima "^4.0.0"
 
-leaflet@^1.5.1, leaflet@^1.7.1:
+leaflet.markercluster@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/leaflet.markercluster/-/leaflet.markercluster-1.4.1.tgz#b53f2c4f2ca7306ddab1dbb6f1861d5e8aa6c5e5"
+  integrity sha512-ZSEpE/EFApR0bJ1w/dUGwTSUvWlpalKqIzkaYdYB7jaftQA/Y2Jav+eT4CMtEYFj+ZK4mswP13Q2acnPBnhGOw==
+
+leaflet@^1.5.1, leaflet@^1.6.0, leaflet@^1.7.1:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.7.1.tgz#10d684916edfe1bf41d688a3b97127c0322a2a19"
   integrity sha512-/xwPEBidtg69Q3HlqPdU3DnrXQOvQU/CCHA1tcDQVzOwm91YMYaILjNp7L4Eaw5Z4sOYdbBz6koWyibppd8Zqw==
@@ -396,6 +401,16 @@ react-is@^16.7.0, react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-leaflet-markercluster@^3.0.0-rc1:
+  version "3.0.0-rc1"
+  resolved "https://registry.yarnpkg.com/react-leaflet-markercluster/-/react-leaflet-markercluster-3.0.0-rc1.tgz#4e45392d599fb410eac413aeee6cb52f51d0fc5c"
+  integrity sha512-wr8ERtx73sY0uVoQAM1v1vsA5Vsbdgyqc88h+Eo2kYRwNdkVTEOoUTnAh3CgGuOyP0Y9QLd2dKGupGkufpwryQ==
+  dependencies:
+    "@react-leaflet/core" "^1.0.2"
+    leaflet "^1.6.0"
+    leaflet.markercluster "^1.4.1"
+    react-leaflet "^3.0.0"
+
 react-leaflet@^2.6.1:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-2.8.0.tgz#14bfc77b6ae8263d3a62e0ba7a39539c05973c6f"
@@ -406,7 +421,7 @@ react-leaflet@^2.6.1:
     hoist-non-react-statics "^3.3.2"
     warning "^4.0.3"
 
-react-leaflet@^3.0.2:
+react-leaflet@^3.0.0, react-leaflet@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-3.0.2.tgz#4133a0550efe7e24be272b9e24e72fa98b51b751"
   integrity sha512-7JxMV9HOo94jFwn1z+gcHVcYWeMxD994YsLxX3yyWebGOsLxpYfiQgNI7RPZWcAtcBK8XYSRB6WUj8NNb9hgbw==

@@ -8,6 +8,9 @@ import {
 } from "react-leaflet";
 import "../assets/MapLeaflet.css";
 import { Icon } from "leaflet";
+import MarkerClusterGroupWrongType from "react-leaflet-markercluster";
+require("leaflet/dist/leaflet.css");
+require("react-leaflet-markercluster/dist/styles.min.css");
 
 import { useMapLeaflet } from "../hooks";
 import { MapLeafletProps } from "../types";
@@ -67,33 +70,36 @@ const MapLeaflet = ({
     positionSetting,
     selectorIcon: locationSelector?.selectorIcon,
   });
+  const MarkerClusterGroup: any = MarkerClusterGroupWrongType;
   return (
     <MapContainer center={mapCenterPosition} zoom={zoom}>
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
       />
-      {markers.map((marker) => {
-        return (
-          <Marker
-            key={JSON.stringify({
-              position: marker.position,
-              name: marker.name,
-            })}
-            position={marker.position}
-            icon={
-              new Icon({
-                iconUrl: marker.icon || " ",
-                iconSize: marker.size,
-              })
-            }
-          >
-            <Popup>
-              {marker.name} <br />
-            </Popup>
-          </Marker>
-        );
-      })}
+      <MarkerClusterGroup>
+        {markers.map((marker) => {
+          return (
+            <Marker
+              key={JSON.stringify({
+                position: marker.position,
+                name: marker.name,
+              })}
+              position={marker.position}
+              icon={
+                new Icon({
+                  iconUrl: marker.icon || " ",
+                  iconSize: marker.size,
+                })
+              }
+            >
+              <Popup>
+                {marker.name} <br />
+              </Popup>
+            </Marker>
+          );
+        })}
+      </MarkerClusterGroup>
       {!!locationSelector && (
         <LocationSelector
           selectorIconWithDefault={selectorIconWithDefault}

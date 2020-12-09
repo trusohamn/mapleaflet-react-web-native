@@ -2,6 +2,9 @@ import React, { useRef, useMemo } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, } from "react-leaflet";
 import "../assets/MapLeaflet.css";
 import { Icon } from "leaflet";
+import MarkerClusterGroupWrongType from "react-leaflet-markercluster";
+require("leaflet/dist/leaflet.css");
+require("react-leaflet-markercluster/dist/styles.min.css");
 import { useMapLeaflet } from "../hooks";
 const LocationSelector = ({ setSelectedPosition, selectedPosition, selectorIconWithDefault, }) => {
     const markerRef = useRef(null);
@@ -29,9 +32,10 @@ const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting
         positionSetting,
         selectorIcon: locationSelector === null || locationSelector === void 0 ? void 0 : locationSelector.selectorIcon,
     });
+    const MarkerClusterGroup = MarkerClusterGroupWrongType;
     return (React.createElement(MapContainer, { center: mapCenterPosition, zoom: zoom },
         React.createElement(TileLayer, { attribution: '\u00A9 <a href="http://osm.org/copyright">OpenStreetMap</a> contributors', url: "https://{s}.tile.osm.org/{z}/{x}/{y}.png" }),
-        markers.map((marker) => {
+        React.createElement(MarkerClusterGroup, null, markers.map((marker) => {
             return (React.createElement(Marker, { key: JSON.stringify({
                     position: marker.position,
                     name: marker.name,
@@ -43,7 +47,7 @@ const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting
                     marker.name,
                     " ",
                     React.createElement("br", null))));
-        }),
+        })),
         !!locationSelector && (React.createElement(LocationSelector, { selectorIconWithDefault: selectorIconWithDefault, selectedPosition: locationSelector.selectedPosition, setSelectedPosition: locationSelector.setSelectedPosition }))));
 };
 export default MapLeaflet;
