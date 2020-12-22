@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { WebViewLeaflet, WebViewLeafletEvents, } from "@trusohamn/react-native-webview-leaflet";
-import { View, Alert, Image } from "react-native";
+import { View, Alert, Image, Modal, TouchableHighlight, Text, } from "react-native";
 import { useMapLeaflet } from "../hooks";
 import styles from "../style";
 const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting, locationSelector, }) => {
+    const [modalVisible, setModalVisible] = useState(true);
     const { mapCenterPosition, zoom, selectorIconWithDefault } = useMapLeaflet({
         zoomSetting,
         positionSetting,
@@ -39,6 +40,15 @@ const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting
         return locationMarkers;
     };
     return (React.createElement(View, { style: styles.container },
+        React.createElement(Modal, { animationType: "slide", transparent: true, visible: modalVisible, onRequestClose: () => {
+                setModalVisible(false);
+            } },
+            React.createElement(View, null,
+                React.createElement(Text, null, "Hello World!"),
+                React.createElement(TouchableHighlight, { onPress: () => {
+                        setModalVisible(!modalVisible);
+                    } },
+                    React.createElement(Text, null, "Hide Modal")))),
         React.createElement(WebViewLeaflet, { onMessageReceived: onMessageReceived, ref: (ref) => {
                 setWebViewLeafletRef(ref);
             }, mapLayers: [
