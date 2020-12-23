@@ -93,9 +93,7 @@ const MapLeaflet = ({
                 })
               }
             >
-              <Popup>
-                {marker.name} <br />
-              </Popup>
+              <Popup>{marker.popup}</Popup>
             </Marker>
           );
         })}

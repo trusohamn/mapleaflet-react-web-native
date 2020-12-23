@@ -6,6 +6,7 @@ export type MarkerObject = {
   icon: string;
   size: [number, number];
   name: string;
+  popup?: React.FC;
 };
 
 export type MapLeafletProps = {

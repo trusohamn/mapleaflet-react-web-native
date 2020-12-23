@@ -22,7 +22,8 @@ const MapLeaflet = ({
   position: positionSetting,
   locationSelector,
 }: MapLeafletProps) => {
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [mapMarkerId, setMapMarkerId] = useState(0);
   const { mapCenterPosition, zoom, selectorIconWithDefault } = useMapLeaflet({
     zoomSetting,
     positionSetting,
@@ -40,14 +41,8 @@ const MapLeaflet = ({
         locationSelector?.setSelectedPosition(position);
         break;
       case WebViewLeafletEvents.ON_MAP_MARKER_CLICKED:
-        Alert.alert(
-          ` ${
-            message?.payload?.mapMarkerID
-              ? markers[parseInt(message?.payload?.mapMarkerID, 10) - 1].name
-              : "unknown"
-          }`
-        );
-
+        setModalVisible(true);
+        setMapMarkerId(parseInt(message?.payload?.mapMarkerID || "0", 10) - 1);
         break;
     }
   };
@@ -73,25 +68,23 @@ const MapLeaflet = ({
 
   return (
     <View style={styles.container}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(false);
-        }}
-      >
-        <View>
-          <Text>Hello World!</Text>
-          <TouchableHighlight
-            onPress={() => {
-              setModalVisible(!modalVisible);
-            }}
-          >
-            <Text>Hide Modal</Text>
-          </TouchableHighlight>
-        </View>
-      </Modal>
+      <View style={styles.centeredView}>
+        <Modal animationType="slide" transparent={true} visible={modalVisible}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              {markers[mapMarkerId].popup}
+              <TouchableHighlight
+                style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                onPress={() => {
+                  setModalVisible(false);
+                }}
+              >
+                <Text style={styles.textStyle}>Close</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+        </Modal>
+      </View>
       <WebViewLeaflet
         onMessageReceived={onMessageReceived}
         ref={(ref: WebViewLeaflet) => {
