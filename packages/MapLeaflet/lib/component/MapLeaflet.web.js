@@ -36,6 +36,7 @@ const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting
     return (React.createElement(MapContainer, { center: mapCenterPosition, zoom: zoom },
         React.createElement(TileLayer, { attribution: '\u00A9 <a href="http://osm.org/copyright">OpenStreetMap</a> contributors', url: "https://{s}.tile.osm.org/{z}/{x}/{y}.png" }),
         React.createElement(MarkerClusterGroup, null, markers.map((marker) => {
+            const CustomPopup = marker.Popup;
             return (React.createElement(Marker, { key: JSON.stringify({
                     position: marker.position,
                     name: marker.name,
@@ -44,9 +45,7 @@ const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting
                     iconSize: marker.size,
                 }) },
                 React.createElement(Popup, null,
-                    marker.name,
-                    " ",
-                    React.createElement("br", null))));
+                    React.createElement(CustomPopup, null))));
         })),
         !!locationSelector && (React.createElement(LocationSelector, { selectorIconWithDefault: selectorIconWithDefault, selectedPosition: locationSelector.selectedPosition, setSelectedPosition: locationSelector.setSelectedPosition }))));
 };

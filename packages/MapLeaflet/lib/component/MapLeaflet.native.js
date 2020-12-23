@@ -4,7 +4,9 @@ import { View, Image, Modal, TouchableHighlight, Text, } from "react-native";
 import { useMapLeaflet } from "../hooks";
 import styles from "../style";
 const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting, locationSelector, }) => {
+    var _a;
     const [modalVisible, setModalVisible] = useState(false);
+    const [mapMarkerId, setMapMarkerId] = useState(0);
     const { mapCenterPosition, zoom, selectorIconWithDefault } = useMapLeaflet({
         zoomSetting,
         positionSetting,
@@ -12,7 +14,7 @@ const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting
     });
     const [webViewLeafletRef, setWebViewLeafletRef,] = useState(null);
     const onMessageReceived = (message) => {
-        var _a;
+        var _a, _b;
         switch (message.event) {
             case WebViewLeafletEvents.ON_MAP_TOUCHED:
                 const position = (_a = message === null || message === void 0 ? void 0 : message.payload) === null || _a === void 0 ? void 0 : _a.touchLatLng;
@@ -20,13 +22,7 @@ const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting
                 break;
             case WebViewLeafletEvents.ON_MAP_MARKER_CLICKED:
                 setModalVisible(true);
-                /*  Alert.alert(
-                  ` ${
-                    message?.payload?.mapMarkerID
-                      ? markers[parseInt(message?.payload?.mapMarkerID, 10) - 1].name
-                      : "unknown"
-                  }`
-                ); */
+                setMapMarkerId(parseInt(((_b = message === null || message === void 0 ? void 0 : message.payload) === null || _b === void 0 ? void 0 : _b.mapMarkerID) || "0", 10) - 1);
                 break;
         }
     };
@@ -45,12 +41,13 @@ const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting
         }
         return locationMarkers;
     };
+    const CustomPopup = (_a = markers[mapMarkerId]) === null || _a === void 0 ? void 0 : _a.Popup;
     return (React.createElement(View, { style: styles.container },
         React.createElement(View, { style: styles.centeredView },
             React.createElement(Modal, { animationType: "slide", transparent: true, visible: modalVisible },
                 React.createElement(View, { style: styles.centeredView },
                     React.createElement(View, { style: styles.modalView },
-                        React.createElement(Text, { style: styles.modalText }, "Hello World!"),
+                        React.createElement(CustomPopup, null),
                         React.createElement(TouchableHighlight, { style: Object.assign(Object.assign({}, styles.openButton), { backgroundColor: "#2196F3" }), onPress: () => {
                                 setModalVisible(false);
                             } },

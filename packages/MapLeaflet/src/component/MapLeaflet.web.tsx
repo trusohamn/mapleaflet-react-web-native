@@ -79,6 +79,7 @@ const MapLeaflet = ({
       />
       <MarkerClusterGroup>
         {markers.map((marker) => {
+          const CustomPopup = marker.Popup;
           return (
             <Marker
               key={JSON.stringify({
@@ -93,7 +94,9 @@ const MapLeaflet = ({
                 })
               }
             >
-              <Popup>{marker.popup}</Popup>
+              <Popup>
+                <CustomPopup />
+              </Popup>
             </Marker>
           );
         })}

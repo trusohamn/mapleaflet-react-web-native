@@ -66,13 +66,14 @@ const MapLeaflet = ({
     return locationMarkers;
   };
 
+  const CustomPopup = markers[mapMarkerId]?.Popup;
   return (
     <View style={styles.container}>
       <View style={styles.centeredView}>
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              {markers[mapMarkerId].popup}
+              <CustomPopup />
               <TouchableHighlight
                 style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
                 onPress={() => {
