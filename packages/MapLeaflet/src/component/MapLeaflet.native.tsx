@@ -73,7 +73,7 @@ const MapLeaflet = ({
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <CustomPopup />
+              {!!CustomPopup && <CustomPopup />}
               <TouchableHighlight
                 style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
                 onPress={() => {

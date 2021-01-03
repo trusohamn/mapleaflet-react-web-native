@@ -8,16 +8,19 @@ const markers = [
     id: "1",
     position: { lat: 59.5, lng: 18.0 },
     size: [32, 32],
+    Popup: null,
   },
   {
     id: "2",
     position: { lat: 59.56, lng: 18.0 },
     size: [32, 32],
+    Popup: () => <Text>Hello!</Text>,
   },
   {
     id: "3",
     position: { lat: 59.59, lng: 18.0 },
     size: [32, 32],
+    Popup: null,
   },
 ];
 

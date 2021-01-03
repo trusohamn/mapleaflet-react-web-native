@@ -47,7 +47,7 @@ const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting
             React.createElement(Modal, { animationType: "slide", transparent: true, visible: modalVisible },
                 React.createElement(View, { style: styles.centeredView },
                     React.createElement(View, { style: styles.modalView },
-                        React.createElement(CustomPopup, null),
+                        !!CustomPopup && React.createElement(CustomPopup, null),
                         React.createElement(TouchableHighlight, { style: Object.assign(Object.assign({}, styles.openButton), { backgroundColor: "#2196F3" }), onPress: () => {
                                 setModalVisible(false);
                             } },

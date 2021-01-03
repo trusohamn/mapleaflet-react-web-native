@@ -43,9 +43,8 @@ const MapLeaflet = ({ markers = [], zoom: zoomSetting, position: positionSetting
                 }), position: marker.position, icon: new Icon({
                     iconUrl: marker.icon || " ",
                     iconSize: marker.size,
-                }) },
-                React.createElement(Popup, null,
-                    React.createElement(CustomPopup, null))));
+                }) }, !!CustomPopup && (React.createElement(Popup, null,
+                React.createElement(CustomPopup, null)))));
         })),
         !!locationSelector && (React.createElement(LocationSelector, { selectorIconWithDefault: selectorIconWithDefault, selectedPosition: locationSelector.selectedPosition, setSelectedPosition: locationSelector.setSelectedPosition }))));
 };

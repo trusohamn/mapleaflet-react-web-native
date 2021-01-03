@@ -1,1 +1,1 @@
-export { default } from './MapLeaflet.native.tsx'
+export { default } from "./MapLeaflet.native.tsx";

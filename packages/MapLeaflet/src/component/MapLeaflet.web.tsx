@@ -94,9 +94,11 @@ const MapLeaflet = ({
                 })
               }
             >
-              <Popup>
-                <CustomPopup />
-              </Popup>
+              {!!CustomPopup && (
+                <Popup>
+                  <CustomPopup />
+                </Popup>
+              )}
             </Marker>
           );
         })}
